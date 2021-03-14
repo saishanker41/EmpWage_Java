@@ -2,9 +2,22 @@ public class EmpWageComputation_Java {
     public static final int IS_PART_TIME = 1;
     public static final int IS_FULL_TIME = 2;
 
-    public static int computeEmpWage(String company, int empRatePerHour,
-                                     int  numOfWorkingDays, int maxHoursPerMonth){
 
+    private final String company;
+    private final int empRatePerHour;
+    private final int numOfWorkingDays;
+    private final int maxHoursPerMonth;
+    private int totalEmpWage;
+
+    public EmpWageComputation_Java(String company, int empRatePerHour,
+                                     int  numOfWorkingDays, int maxHoursPerMonth){
+       this.company = company;
+       this.empRatePerHour = empRatePerHour;
+       this.numOfWorkingDays = numOfWorkingDays;
+       this.maxHoursPerMonth =  maxHoursPerMonth;
+    }
+
+    public void computeEmpWage(){
        // Variables
 
        int empHrs = 0;
@@ -14,7 +27,7 @@ public class EmpWageComputation_Java {
        //Computation
        while (totalEmpHrs <=maxHoursPerMonth &&
                totalWorkingDays < numOfWorkingDays)
-        {
+       {
              totalWorkingDays++;
              int empCheck = (int) Math.floor(Math.random() * 10) % 3;
              switch (empCheck) {
@@ -34,16 +47,24 @@ public class EmpWageComputation_Java {
              totalEmpHrs += empHrs;
              System.out.println("Day#: " + totalWorkingDays + " Emp Hr: " + empHrs);
 
-        }
+       }
 
-        int totalEmpWage = totalEmpHrs * empRatePerHour;
-        System.out.println("Total Emp Wage for Company: " +
-                            company+" is: " + totalEmpWage);
-        return totalEmpWage;
-     }
+       totalEmpWage = totalEmpHrs * empRatePerHour;
 
-     public static void main(String[] args) {
-        computeEmpWage("DMart", 20, 2, 10);
-        computeEmpWage("Reliance", 10, 4, 20);
-     }
+
+    }
+    @Override
+    public String toString() {
+        return "Total Emp Wage for Company: " +
+                            company+" is: " + totalEmpWage;
+    }
+
+    public static void main(String[] args) {
+        EmpWageComputation_Java dMart = new EmpWageComputation_Java("DMart", 20, 2, 10);
+        EmpWageComputation_Java Reliance = new EmpWageComputation_Java("Reliance", 10, 4, 20);
+        dMart.computeEmpWage();
+        System.out.println(dMart);
+        Reliance.computeEmpWage();
+        System.out.println(Reliance);
+    }
 }
